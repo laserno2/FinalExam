@@ -24,12 +24,12 @@ public class Retirement {
 
 	public double MonthlySavings() {
 
-		return Math.abs(Math.round(FinanceLib.pmt(dAnnualReturnWorking/12, iYearsToWork*12, dRequiredIncome*12*iYearsRetired,0, false)*100)/100);
+		return Math.abs(Math.round(FinanceLib.pmt(percentageChecker(dAnnualReturnWorking)/12, iYearsToWork*12, dRequiredIncome*12*iYearsRetired,0, false)*100)/100);
 	}
 
 	public double TotalAmountToSave() {
 		//	Hint: Here's how to round a number: pv = Math.round(pv * 100.0) / 100.0;
-		return Math.abs(Math.round(FinanceLib.pv(dAnnualReturnRetired / 12, iYearsRetired * 12, dRequiredIncome - dMonthlySSI, 0, false)*100)/100);
+		return Math.abs(Math.round(FinanceLib.pv(percentageChecker(dAnnualReturnRetired) / 12, iYearsRetired * 12, dRequiredIncome - dMonthlySSI, 0, false)*100)/100);
 	}
 
 	public static double PMT(double r, double n, double p, double f, boolean t) {
@@ -48,6 +48,13 @@ public class Retirement {
 		//	f = Future value
 		//	t = boolean... when interest is calculated... we're going to use FALSE
 		return FinanceLib.pv(r, n, y, f, t);
+	}
+	
+	private double percentageChecker(double d) {
+		if(d>1) {
+			d= d/100;
+		}
+		return d;
 	}
 
 	public int getiYearsToWork() {
